@@ -10,7 +10,7 @@ block content
         .row.g-0
           .col-lg-4 
             if campground.images.length
-              #campgroundImageCarousel.carousel.slide.carousel-fade(data-bs-ride='carousel')
+              .carousel.slide.carousel-fade(data-bs-ride=`carousel-${campground.id}` id=`campgroundImageCarousel-${campground.id}`)
                 .carousel-inner
                   each image, value in campground.images
                     if value == 0
@@ -19,10 +19,10 @@ block content
                     else 
                       .carousel-item.carousel-item-mod(data-bs-interval="10000")
                         img.d-block.img-fluid(src=`${image.url}` alt=`${campground.title} image ${value + 1}`)
-                button.carousel-control-prev(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='prev')
+                button.carousel-control-prev(type='button' data-bs-target=`#campgroundImageCarousel-${campground.id}` data-bs-slide='prev')
                   span.carousel-control-prev-icon(aria-hidden='true')
                   span.visually-hidden Previous
-                button.carousel-control-next(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='next')
+                button.carousel-control-next(type='button' data-bs-target=`#campgroundImageCarousel-${campground.id}` data-bs-slide='next')
                   span.carousel-control-next-icon(aria-hidden='true')
                   span.visually-hidden Next
             else 
