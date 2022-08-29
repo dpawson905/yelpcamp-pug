@@ -1,0 +1,23 @@
+// Modal
+form.validated-form(action="/user/login", method="post" novalidate) 
+  #loginModal.modal.fade(tabindex='-1' aria-labelledby='loginModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        .modal-header
+          h5#loginModalLabel.modal-title Login
+          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+        .modal-body
+          .mb-3
+            label.form-label(for='username') Username
+            input#username.form-control(type='text' name="username" aria-describedby='usernameHelp' required)
+            .invalid-feedback 
+              | Please enter your username
+            #usernameHelp.form-text We&apos;ll never share your information with anyone else.
+          .mb-3
+            label.form-label(for='password') Password
+            input#password.form-control(type='password' name="password" required)
+            .invalid-feedback 
+              | Please enter a password
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+          button.btn.btn-primary(type='submit') Login

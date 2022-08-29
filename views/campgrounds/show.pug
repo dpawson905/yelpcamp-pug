@@ -1,0 +1,76 @@
+extends ../layout
+
+block content
+  .container.py-5
+    .row
+      .col-lg-6 
+        #campgroundImageCarousel.carousel.slide.carousel-fade(data-bs-ride='carousel')
+          .carousel-inner
+            each image, value in campground.images
+              if value == 0
+                .carousel-item.active(data-bs-interval="10000")
+                  img.d-block.img-fluid.rounded-top(src=`${image.url}` alt=`${campground.title} image ${value + 1}`)
+              else 
+                .carousel-item(data-bs-interval="10000")
+                  img.d-block.img-fluid.rounded-top(src=`${image.url}` alt=`${campground.title} image ${value + 1}`)
+          button.carousel-control-prev(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='prev')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.visually-hidden Previous
+          button.carousel-control-next(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='next')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.visually-hidden Next
+        .card.rounded-0.rounded-bottom
+          .card-body
+            h5.card-title.text-secondary.fs-5.text-capitalize #{campground.title}
+            p.card-text #{campground.description}
+          ul.list-group.list-group-flush
+            li.list-group-item Location: 
+              span.text-muted.text-capitalize #{campground.location}
+            li.list-group-item Submitted by: 
+              span.text-muted.text-capitalize #{campground.author.username}
+            li.list-group-item Price: 
+              span.text-muted.text-capitalize $#{campground.price}/night
+          if currentUser && campground.author.equals(currentUser.id)
+            .card-body
+              a.card-link.btn.btn-outline-info(href=`/campgrounds/${campground.id}/edit`) Edit
+              form.d-inline(action=`/campgrounds/${campground._id}?_method=DELETE` method="POST") 
+                button.btn.btn-outline-danger Delete
+      .col-lg-6 
+        #map
+        if currentUser 
+          h2.text-secondary.display-6.mt-3.mb-0 Leave a Review 
+          form.mb-3.validated-form(action=`/campgrounds/${campground._id}/reviews` method='POST' novalidate='')
+            fieldset.starability-basic
+              input#no-rate.input-no-rate(type='radio' name='review[rating]' value='1' checked='' aria-label='No rating.')
+              input#first-rate1(type='radio' name='review[rating]' value='1')
+              label(for='first-rate1' title='Terrible') 1 star
+              input#first-rate2(type='radio' name='review[rating]' value='2')
+              label(for='first-rate2' title='Not good') 2 stars
+              input#first-rate3(type='radio' name='review[rating]' value='3')
+              label(for='first-rate3' title='Average') 3 stars
+              input#first-rate4(type='radio' name='review[rating]' value='4')
+              label(for='first-rate4' title='Very good') 4 stars
+              input#first-rate5(type='radio' name='review[rating]' value='5')
+              label(for='first-rate5' title='Amazing') 5 stars
+            .mb-3.form-floating
+              textarea#body.form-control(name='review[body]' style="height: 15vh" required='' placeholder="Leave a review here")
+              .valid-feedback Looks good!
+              label(for='body') Review Text
+            button.btn.btn-outline-success Submit
+          unless campground.reviews.length
+            h5.text-secondary No reviews have been posted for this campground
+          each review in campground.reviews 
+            .card
+              .card-body 
+                h5.card-title.text-secondary #{review.author.username}
+                p.starability-result(data-rating=`${review.rating}`) Rated: #{review.rating} stars 
+                if currentUser && campground.author.equals(currentUser.id)
+                  form(action=`/campgrounds/${campground._id}/reviews/${review._id}?_method=DELETE` method='POST')
+                    button.btn.btn-sm.btn-danger Delete
+
+  script.
+    const mapToken = `#{process.env.MAPBOX_TOKEN}`
+    const campground = !{JSON.stringify(campground)}
+
+  script(src="/javascripts/showPageMap.js") 
+              

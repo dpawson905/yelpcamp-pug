@@ -1,0 +1,22 @@
+nav.navbar.navbar-expand-lg.bg-transparent.navbar-dark.fixed-top
+  .container-fluid
+    a.navbar-brand(href='/') YelpCamp
+    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        li.nav-item
+          a.nav-link.active(aria-current='page' href='/') Home
+        li.nav-item
+          a.nav-link(href='/campgrounds') Campgrounds
+        li.nav-item
+          a.nav-link(href="/campgrounds/new") New Campground
+      ul.navbar-nav.ms-auto.mb-2.mb-lg-0.d-flex.gap-2
+        if !currentUser
+          li 
+            a.btn.btn-outline-primary(data-bs-toggle="modal" data-bs-target="#loginModal") Login
+          li 
+            a.btn.btn-outline-success(href="/user/register") Register
+        else 
+          li 
+            a.nav-link(href="/user/logout") Logout 

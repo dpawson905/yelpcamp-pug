@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+  #cluster-map
+  .container.mt-3 
+    h1.display-6.text-secondary All Campgrounds
+    include ../partials/paginate 
+    each campground in campgrounds.docs
+      .card.mb-3 
+        .row.g-0
+          .col-lg-4 
+            if campground.images.length
+              #campgroundImageCarousel.carousel.slide.carousel-fade(data-bs-ride='carousel')
+                .carousel-inner
+                  each image, value in campground.images
+                    if value == 0
+                      .carousel-item.carousel-item-mod.active(data-bs-interval="10000")
+                        img.d-block.img-fluid(src=`${image.url}` alt=`${campground.title} image ${value + 1}`)
+                    else 
+                      .carousel-item.carousel-item-mod(data-bs-interval="10000")
+                        img.d-block.img-fluid(src=`${image.url}` alt=`${campground.title} image ${value + 1}`)
+                button.carousel-control-prev(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='prev')
+                  span.carousel-control-prev-icon(aria-hidden='true')
+                  span.visually-hidden Previous
+                button.carousel-control-next(type='button' data-bs-target='#campgroundImageCarousel' data-bs-slide='next')
+                  span.carousel-control-next-icon(aria-hidden='true')
+                  span.visually-hidden Next
+            else 
+              img.img-fluid.rounded-start(src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png", alt=`${campground.title} image`)
+          .col-lg-8
+            .card-body.h-100.d-flex.flex-column.justify-content-center.gap-3
+              h5.card-title.text-secondary.fs-5 #{campground.title}
+              p.card-text #{campground.description}
+              p.card-text Location: 
+                small.text-muted.lead #{campground.location}
+              a.btn.btn-small.btn-outline-primary.campground-button(href=`/campgrounds/${campground.id}`) View #{campground.title}
+    include ../partials/paginate
+  
+  script.
+    const mapToken = `#{process.env.MAPBOX_TOKEN}`
+    const campgrounds = { features: !{JSON.stringify(campgrounds.docs)}}
+
+  script(src="/javascripts/clusterMap.js") 

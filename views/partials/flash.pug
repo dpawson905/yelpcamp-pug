@@ -1,0 +1,30 @@
+if error && error.length
+  .position-fixed.bottom-0.end-0.p-3(style='z-index: 1111')
+    .toast(id="success-toast" role='alert', aria-live='assertive', aria-atomic='true' data-autohide="false")
+      .toast-header.bg-danger.text-white
+        strong.me-auto Error
+        small Just Now
+        button.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+      .toast-body.rounded-bottom
+        p.fs-5=error
+
+  script.
+    $(document).ready(function(){
+      $('.toast').toast('show');
+    });
+  
+
+if success && success.length
+  .position-fixed.bottom-0.end-0.p-3(style='z-index: 1111')
+    .toast(id="success-toast" role='alert', aria-live='assertive', aria-atomic='true' data-autohide="false")
+      .toast-header.bg-success.text-white
+        strong.me-auto Success
+        small Just Now
+        button.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+      .toast-body.rounded-bottom
+        p.fs-5=success
+
+  script.
+    $(document).ready(function(){
+      $('.toast').toast('show');
+    });

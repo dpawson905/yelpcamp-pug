@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container.py-5
+    .row
+      h1.text-center New Campground
+      .col-lg-8.offset-lg-2
+        form.validated-form(action='/campgrounds' method='POST' novalidate='' enctype='multipart/form-data')
+          .mb-3
+            label.form-label(for='title') Title
+            input#title.form-control(type='text' name='campground[title]' required='')
+            .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='location') Location
+            input#location.form-control(type='text' name='campground[location]' required='')
+            .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='price') Campground Price
+            .input-group
+              span#price-label.input-group-text $
+              input#price.form-control(type='text' placeholder='0.00' aria-label='price' aria-describedby='price-label' name='campground[price]' required='')
+              .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='description') Description
+            textarea#description.form-control(type='text' name='campground[description]' style="height: 15vh" required='')
+            .valid-feedback Looks good!
+          .mb-3.input-group
+            label.input-group-text(for="image") 
+              i.fa-duotone.fa-images
+            input#image.form-control(type="file" multiple required='')
+            .valid-feedback Looks good!
+          .mb-3.d-flex.gap-2
+            a.btn.btn-outline-secondary(href='/campgrounds') Cancel
+            button.btn.btn-outline-success Add Campground

@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+  .container.py-5 
+    .row 
+      .col-lg-8.offset-lg-2 
+        h1.text-center Edit Campground
+        form.validated-form(action=`/campgrounds/${campground._id}?_method=PUT` method='POST' novalidate='' enctype='multipart/form-data')
+          .mb-3
+            label.form-label(for='title') Title
+            input#title.form-control(type='text' name='campground[title]' value=`${campground.title}` required='')
+            .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='location') Location
+            input#location.form-control(type='text' name='campground[location]' value=`${campground.location}` required='')
+            .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='price') Campground Price
+            .input-group
+              span#price-label.input-group-text $
+              input#price.form-control(type='text' placeholder='0.00' aria-label='price' aria-describedby='price-label' name='campground[price]' value=`${campground.price}` required='')
+              | \
+              .valid-feedback Looks good!
+          .mb-3
+            label.form-label(for='description') Description
+            textarea#description.form-control(type='text' name='campground[description]' style="height: 15vh" required='') #{campground.description}
+            .valid-feedback Looks good!
+          .mb-3
+            .form-file.custom-file
+              label.form-label(for='image')  Add More Image(s)... 
+              input#image.form-control(type='file' name='image' multiple='')
+          .mb-3
+          .mb-3
+            button.btn.btn-info Update Campground
+        a(href=`/campgrounds/${campground._id}`) Back To Campground

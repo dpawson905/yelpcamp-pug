@@ -1,0 +1,18 @@
+.my-2 
+  nav(aria-label="Pagination")
+    ul.pagination.pagination.sm.justify-content-center 
+      if currentPage - 1
+        li.page-item 
+          a.page-link(href=`/campgrounds?page=${campgrounds.page - 1}`)
+            span(aria-hidden="true") &laquo;
+      if campgrounds.totalPages > 1 && campgrounds.docs.length
+        - for (let i = startPage; i <= endPage; i++)
+          li.page-item
+            if i === campgrounds.page 
+              a.page-link.text-secondary(href=`/campgrounds?page=${i}`)= i
+            else 
+              a.page-link(href=`/campgrounds?page=${i}`)= i
+      if ((currentPage + 1) <= totalPages)
+        li.page-item 
+          a.page-link(href=`/campgrounds?page=${campgrounds.page + 1}`)
+            span(aria-hidden="true") &raquo; 

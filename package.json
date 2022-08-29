@@ -1,0 +1,44 @@
+{
+  "name": "yelpcamp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "DEBUG=yelpcamp:* nodemon",
+    "dev-win": "set DEBUG=yelpcamp:* && nodemon"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.13.4",
+    "@sendgrid/mail": "^7.7.0",
+    "bootstrap": "^5.2.0",
+    "cloudinary": "^1.30.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "~1.4.6",
+    "debug": "~4.3.4",
+    "express": "~4.18.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.0",
+    "html-to-text": "^8.2.1",
+    "http-errors": "~2.0.0",
+    "joi": "^17.6.0",
+    "jquery": "^3.6.1",
+    "kickbox": "^2.0.4",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.5.3",
+    "mongoose-paginate-v2": "^1.7.0",
+    "morgan": "~1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "node-sass-middleware": "1.0.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
+    "pug": "3.0.2",
+    "sanitize-html": "^2.7.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1"
+  }
+}
