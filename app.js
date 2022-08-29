@@ -32,19 +32,6 @@ const {
   imgSrcUrls,
 } = require("./utils/corsHelper");
 
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
-
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  debug("Database connected");
-});
-
 const app = express();
 
 // view engine setup
@@ -73,7 +60,7 @@ app.use(
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 
 const store = new MongoDBStore({
-  mongoUrl: dbUrl,
+  mongoUrl: process.env.DB_URL,
   secret,
   touchAfter: 24 * 60 * 60,
 });
@@ -149,7 +136,4 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  debug(`YelpCamp is running on port ${PORT}`);
-});
+module.exports = app;
